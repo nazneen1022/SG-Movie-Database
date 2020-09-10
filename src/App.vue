@@ -1,16 +1,19 @@
 <template>
   <div id="app">
     <Navigation />
+    <MovieList />
   </div>
 </template>
 
 <script>
 import Navigation from "./components/Navigation/Navigation.vue";
+import MovieList from "./components/MovieList/MovieList";
 
 export default {
   name: "App",
   components: {
     Navigation,
+    MovieList,
   },
 };
 </script>

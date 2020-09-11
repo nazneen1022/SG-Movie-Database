@@ -10,10 +10,10 @@
         />
       </li>
       <li>
-        <a href="MovieList">All</a>
+        <router-link to="/MovieList">All</router-link>
       </li>
       <li class="right">
-        <a href="AddMovie">Add Movie</a>
+        <router-link to="/AddMovie">Add Movie</router-link>
       </li>
     </ul>
   </div>

@@ -1,19 +1,34 @@
 <template>
   <div id="app">
     <Navigation />
-    <MovieList />
+    <!--<MovieList /> -->
+    <router-view />
   </div>
 </template>
 
 <script>
+import Vue from "vue";
+import VueRouter from "vue-router";
 import Navigation from "./components/Navigation/Navigation.vue";
 import MovieList from "./components/MovieList/MovieList";
+import AddMovie from "./components/AddMovie/AddMovie";
+
+const router = new VueRouter({
+  mode: "history",
+  routes: [
+    { path: "/MovieList", name: "MovieList", component: MovieList },
+    { path: "/AddMovie", name: "AddMovie", component: AddMovie },
+    // { path: "/bar/:id", name: "bar", component: Bar },
+  ],
+});
+
+Vue.use(VueRouter);
 
 export default {
+  router,
   name: "App",
   components: {
     Navigation,
-    MovieList,
   },
 };
 </script>

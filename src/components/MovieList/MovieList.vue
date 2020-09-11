@@ -1,7 +1,7 @@
 <template>
   <body>
     <h1>List of Movies</h1>
-    <div id="app">
+    <div>
       <div class="row">
         <div v-for="movie in listOfMovies" :key="movie.imdbID">
           <div class="column">

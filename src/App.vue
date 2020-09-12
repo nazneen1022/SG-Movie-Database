@@ -12,13 +12,14 @@ import VueRouter from "vue-router";
 import Navigation from "./components/Navigation/Navigation.vue";
 import MovieList from "./components/MovieList/MovieList";
 import AddMovie from "./components/AddMovie/AddMovie";
+import EditMovie from "./components/EditMovie/EditMovie";
 
 const router = new VueRouter({
   mode: "history",
   routes: [
     { path: "/MovieList", name: "MovieList", component: MovieList },
     { path: "/AddMovie", name: "AddMovie", component: AddMovie },
-    // { path: "/bar/:id", name: "bar", component: Bar },
+    { path: "/MovieList/:imdbId", name: "EditMovie", component: EditMovie },
   ],
 });
 

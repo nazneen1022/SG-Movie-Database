@@ -7,7 +7,11 @@
           <div class="column">
             <div class="card">
               <h3>
-                <strong>{{ movie.Title }}</strong>
+                <strong
+                  ><router-link :to="`/MovieList/${movie.imdbID}`">{{
+                    movie.Title
+                  }}</router-link></strong
+                >
               </h3>
               <img
                 :src="movie.Poster"
@@ -87,6 +91,6 @@ body {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   padding: 16px;
   text-align: center;
-  background-color: rgb(245, 244, 244);
+  background-color: rgb(216, 213, 213);
 }
 </style>

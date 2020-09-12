@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Add a New Movie</h1>
-    <form id="app">
+    <div class="myform">
       <!-- text -->
       <p>
         <label>Title</label>
@@ -13,7 +13,7 @@
       </p>
       <p>
         <label>Poster URL</label>
-        <input type="text" v-model="movie.poster" />
+        <input type="text" v-model="movie.posterUrl" />
       </p>
       <p>
         <label>Release Date</label>
@@ -69,41 +69,51 @@
         <label>Production</label>
         <input type="text" v-model="movie.production" />
       </p>
-       <p><pre>movie: {{movie | json 2}}</pre></p>
+       <p><pre>movie: {{movie }}</pre></p>
        <p>
-       <button class="mybutton" style="float:left">Add Movie</button>
-       <button class="mybutton" style="float:right">Cancel</button>
+       <button class="mybutton" style="float:left" @click="handleSubmit(movie)">Add Movie</button>
+       <button class="mybutton" style="float:right" @click="handleCancel()">Cancel</button>
        </p>
-    </form>
+    </div>
     <br/>
   </div>
 </template>
 
 <script>
 export default {
+  name:'AddMovie',
   data() {
     return {
       movie: {
         title: "",
         year: "",
         posterUrl: "",
-        releaseDate: new Date(),
+        releaseDate: Date.now(),
         plot: "",
         genre: [],
         language: [],
         director: "",
         production: "",
       },
-    };
+    }
   },
-  computed(){
-
+  methods: {
+    handleSubmit(movie) {
+      //console.log("in Handle Submit:",movie)
+      this.$store.commit({
+        type: 'addMovie',
+        newMovie: movie
+        })
+      },
+    handleCancel() {
+      return null
+    }
   }
 };
 </script>
 
 <style scoped>
-form{
+.myform{
   padding-left:30%;
   padding-right: 30%;
 }

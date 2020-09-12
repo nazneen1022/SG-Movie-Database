@@ -29,18 +29,17 @@
 </template>
 
 <script>
-import store from "../../store/store";
 export default {
   data() {
+    console.log("here:", this.$store.state.movies);
     return {
-      listOfMovies: null,
+      listOfMovies: this.$store.state.movies,
     };
   },
-  mounted() {
-    this.listOfMovies = store.state.movies;
-  },
+  // mounted() {
+  //   this.listOfMovies = store.state.movies;
+  // },
 };
-console.log("store data:", store.state.movies);
 </script>
 
 <style scoped>

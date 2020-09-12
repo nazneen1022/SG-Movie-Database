@@ -17,7 +17,10 @@
               />
               <div style="text-align:left">
                 <p><strong>Release Year :</strong> {{ movie.Year }}</p>
-                <p><strong>imdb Rating :</strong> {{ movie.imdbRating }}</p>
+                <p>
+                  <strong>imdb Rating :</strong>
+                  {{ movie.imdbRating || "Not Rated" }}
+                </p>
               </div>
             </div>
             <br />
@@ -31,14 +34,14 @@
 <script>
 export default {
   data() {
-    console.log("here:", this.$store.state.movies);
     return {
-      listOfMovies: this.$store.state.movies,
+      listOfMovies: null,
     };
   },
-  // mounted() {
-  //   this.listOfMovies = store.state.movies;
-  // },
+  mounted() {
+    this.listOfMovies = this.$store.state.movies;
+    //console.log("list:", this.listOfMovies);
+  },
 };
 </script>
 

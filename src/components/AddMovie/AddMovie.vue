@@ -69,55 +69,65 @@
         <label>Production</label>
         <input type="text" v-model="movie.production" />
       </p>
-       <p><pre>movie: {{movie }}</pre></p>
-       <p>
-       <button class="mybutton" style="float:left" @click="handleSubmit(movie)">Add Movie</button>
-       <button class="mybutton" style="float:right" @click="handleCancel()">Cancel</button>
-       </p>
+      <!-- <p><pre>movie: {{movie }}</pre></p> -->
+      <p>
+        <button
+          class="mybutton"
+          style="float:left"
+          @click="handleSubmit(movie)"
+        >
+          Add Movie
+        </button>
+        <button class="mybutton" style="float:right" @click="handleCancel()">
+          Cancel
+        </button>
+      </p>
     </div>
-    <br/>
+    <br />
   </div>
 </template>
 
 <script>
 export default {
-  name:'AddMovie',
+  name: "AddMovie",
   data() {
     return {
       movie: {
         title: "",
         year: "",
         posterUrl: "",
-        releaseDate: Date.now(),
+        releaseDate: "",
         plot: "",
         genre: [],
         language: [],
         director: "",
         production: "",
       },
-    }
+    };
   },
   methods: {
     handleSubmit(movie) {
       //console.log("in Handle Submit:",movie)
       this.$store.commit({
-        type: 'addMovie',
-        newMovie: movie
-        })
-      },
+        type: "addMovie",
+        newMovie: movie,
+      });
+    },
     handleCancel() {
-      return null
-    }
-  }
+      return this.movie;
+    },
+  },
 };
 </script>
 
 <style scoped>
-.myform{
-  padding-left:30%;
+.myform {
+  padding-left: 30%;
   padding-right: 30%;
 }
-input[type="text"],input[type="date"],textarea,
+input[type="text"],
+input[type="date"],
+textarea,
 select {
   width: 100%;
   padding: 12px 20px;
@@ -128,9 +138,9 @@ select {
   box-sizing: border-box;
 }
 
-.mybutton{
-  border:2px solid;
-  padding:7px;
+.mybutton {
+  border: 2px solid;
+  padding: 7px;
   border-radius: 3px;
   background-color: rgb(240, 228, 250);
 }

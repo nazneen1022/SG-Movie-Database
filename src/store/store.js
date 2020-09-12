@@ -11,11 +11,15 @@ export default new Vuex.Store({
   mutations: {
     addMovie(state, payload) {
       // console.log("I'm here:", state, payload.newMovie);
+      const imdbIDs = state.movies.map((movie) =>
+        parseInt(movie.imdbID.replace("imdb", ""))
+      );
+      const newID = `${imdbIDs.length + 1}`.padStart(7, 0);
       const newMovie = {
         Title: payload.newMovie.title,
         Year: payload.newMovie.year,
         Rated: "",
-        Released: payload.newMovie.date,
+        Released: payload.newMovie.date || "1900-01-01",
         Runtime: "",
         Genre: payload.newMovie.genre.join(","),
         Director: payload.newMovie.director,
@@ -30,7 +34,7 @@ export default new Vuex.Store({
         Metascore: "",
         imdbRating: "",
         imdbVotes: "",
-        imdbID: "tt9999999",
+        imdbID: `imdb${newID}`,
         Type: "movie",
         DVD: "",
         BoxOffice: "",
@@ -40,7 +44,7 @@ export default new Vuex.Store({
       };
       //console.log("new Movie:", newMovie);
       //console.log("new State:", state);
-      return [...state.movies, newMovie];
+      state.movies = [...state.movies, newMovie];
     },
   },
   actions: {},

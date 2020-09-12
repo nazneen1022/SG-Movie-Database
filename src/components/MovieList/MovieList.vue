@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { movieDB } from "../../../imdb";
+import store from "../../store/store";
 export default {
   data() {
     return {
@@ -37,10 +37,10 @@ export default {
     };
   },
   mounted() {
-    this.listOfMovies = movieDB;
+    this.listOfMovies = store.state.movies;
   },
 };
-console.log("test:", movieDB);
+console.log("store data:", store.state.movies);
 </script>
 
 <style scoped>

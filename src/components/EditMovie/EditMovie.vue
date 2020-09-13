@@ -91,7 +91,7 @@ export default {
       this.status = true;
     },
     reset() {
-      // Object.assign(this.$data, this.$options.data());
+      return this.movie;
     },
   },
 };

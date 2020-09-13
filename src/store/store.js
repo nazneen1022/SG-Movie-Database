@@ -42,8 +42,7 @@ export default new Vuex.Store({
         Website: "N/A",
         Response: "False",
       };
-      //console.log("new Movie:", newMovie);
-      //console.log("new State:", state);
+
       state.movies = [...state.movies, newMovie];
     },
     editMovie(state, payload) {

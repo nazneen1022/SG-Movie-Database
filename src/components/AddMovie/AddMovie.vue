@@ -72,6 +72,14 @@
       </p>
     </div>
     <br />
+    <div>
+      <p v-if="errors.length">
+    <b>Please correct the following error(s):</b>
+    <ul>
+      <li v-for="error in errors" :key="error">{{ error }}</li>
+    </ul>
+  </p>
+    </div>
     <h3 v-if="status === true" style="color:Green">
       <div class="alert">
         <span
@@ -79,7 +87,7 @@
           onclick="this.parentElement.style.display='none';"
           >&times;</span
         >
-        <strong>New Movie Added!</strong>
+        <strong> New Movie Added! </strong>
       </div>
     </h3>
   </div>
@@ -90,7 +98,7 @@ import { allLanguages } from "../../../imdb";
 const filteredLanguages = allLanguages.filter((lang) => lang);
 export default {
   name: "AddMovie",
-
+  props: "",
   data() {
     return {
       movie: {
@@ -105,12 +113,21 @@ export default {
         production: "",
       },
       filteredLanguages,
+      errors: [],
       status: false,
     };
   },
   methods: {
     handleSubmit(movie) {
       //console.log("in Handle Submit:",movie)
+      if (!movie.title || !movie.posterUrl || !movie.year) 
+        return this.errors = ["Title, Poster URL and Year are required!"]
+      
+      else if(isNaN(movie.year))
+       return  this.errors=["Year should be a number!"] 
+      
+      else  this.errors=[]
+      
       this.$store.commit({
         type: "addMovie",
         newMovie: movie,
@@ -161,7 +178,7 @@ div {
 
 .alert {
   padding: 10px;
-  background-color: rgb(7, 191, 197);
+  background-color: #61a125;
   color: white;
 }
 .closebtn {

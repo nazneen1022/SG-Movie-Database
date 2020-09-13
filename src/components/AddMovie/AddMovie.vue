@@ -122,11 +122,23 @@ export default {
       //console.log("in Handle Submit:",movie)
       if (!movie.title || !movie.posterUrl || !movie.year) 
         return this.errors = ["Title, Poster URL and Year are required!"]
-      
-      else if(isNaN(movie.year))
-       return  this.errors=["Year should be a number!"] 
-      
-      else  this.errors=[]
+      //Year Validation - should be a number with 4 digits
+      else if(isNaN(movie.year) || movie.year.length !== 4)
+       return  this.errors=["Year should be a 4-digit number!"];
+      else  {
+        const pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+        '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+        '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+        '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+        const result=pattern.test(movie.posterUrl)
+        
+        // Poster URL validations
+        if(!result) return this.errors=["Poster URL is invalid!"];
+          // no errors - blank out errors array
+        else this.errors=[]
+      }
       
       this.$store.commit({
         type: "addMovie",

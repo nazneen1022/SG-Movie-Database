@@ -655,3 +655,21 @@ export const movieDB = [
     Response: "True",
   },
 ];
+
+export const allLanguages = [
+  "English",
+  "Hindi",
+  "Dutch",
+  "French",
+  "Italian",
+  "Spanish",
+  "Bulgarian",
+  "Mandarian",
+  "German",
+  "Russian",
+  "Japanese",
+  "Swedish",
+  "Sindarin",
+  "Telugu",
+  "Other",
+];

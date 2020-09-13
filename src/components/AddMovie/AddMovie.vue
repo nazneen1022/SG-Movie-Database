@@ -44,21 +44,9 @@
       <p>
         <label>Language</label>
         <select v-model="movie.language" multiple>
-          <option>English</option>
-          <option>Hindi</option>
-          <option>Dutch</option>
-          <option>French</option>
-          <option>Italian</option>
-          <option>Spanish</option>
-          <option>Bulgarian</option>
-          <option>Mandarian</option>
-          <option>German</option>
-          <option>Russian</option>
-          <option>Japanese</option>
-          <option>Swedish</option>
-          <option>Sindarin</option>
-          <option>Telugu</option>
-          <option>Other</option>
+          <option v-for="language in filteredLanguages" :key="language">
+            {{ language }}
+          </option>
         </select>
       </p>
       <p>
@@ -84,12 +72,25 @@
       </p>
     </div>
     <br />
+    <h3 v-if="status === true" style="color:Green">
+      <div class="alert">
+        <span
+          class="closebtn"
+          onclick="this.parentElement.style.display='none';"
+          >&times;</span
+        >
+        <strong>New Movie Added!</strong>
+      </div>
+    </h3>
   </div>
 </template>
 
 <script>
+import { allLanguages } from "../../../imdb";
+const filteredLanguages = allLanguages.filter((lang) => lang);
 export default {
   name: "AddMovie",
+
   data() {
     return {
       movie: {
@@ -103,6 +104,8 @@ export default {
         director: "",
         production: "",
       },
+      filteredLanguages,
+      status: false,
     };
   },
   methods: {
@@ -112,6 +115,7 @@ export default {
         type: "addMovie",
         newMovie: movie,
       });
+      this.status = true;
     },
     handleCancel() {
       return this.movie;
@@ -153,5 +157,25 @@ div {
   border-radius: 5px;
   background-color: #f2f2f2;
   padding: 20px;
+}
+
+.alert {
+  padding: 10px;
+  background-color: rgb(7, 191, 197);
+  color: white;
+}
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 20px;
+  line-height: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
 }
 </style>

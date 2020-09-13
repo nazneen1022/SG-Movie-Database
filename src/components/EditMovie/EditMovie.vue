@@ -1,55 +1,59 @@
 <template>
   <div>
     <h1>Edit Movie</h1>
+
     <img :src="movie.Poster" alt="no poster" width="32%" />
     <div class="editdetails">
       <div>
         <p>
-          <label>Title</label>
+          <label><strong>Title</strong></label>
           <input type="text" v-model="movie.Title" />
         </p>
         <p>
-          <label>Poster URL</label>
+          <label><strong>Poster URL</strong></label>
           <input type="text" v-model="movie.Poster" />
         </p>
         <p>
-          <label>Plot</label>
+          <label><strong>Plot</strong></label>
           <textarea rows="7" v-model="movie.Plot"></textarea>
         </p>
+        <p><strong>Genre : </strong>{{ movie.Genre }}</p>
         <p>
           <label><strong>Language : </strong></label>
-          <span>{{ [...movie.Language, ", ", ...language] }}</span>
+          <span>{{
+            [...this.movie.Language, ", ", ...language.join(", ")]
+          }}</span>
+
           <select v-model="language" multiple>
-            <option>English</option>
-            <option>Hindi</option>
-            <option>Dutch</option>
-            <option>French</option>
-            <option>Italian</option>
-            <option>Spanish</option>
-            <option>Bulgarian</option>
-            <option>Mandarian</option>
-            <option>German</option>
-            <option>Russian</option>
-            <option>Japanese</option>
-            <option>Swedish</option>
-            <option>Sindarin</option>
-            <option>Telugu</option>
-            <option>Other</option>
+            <option v-for="lang in filteredLanguages" :key="lang">
+              {{ lang }}
+            </option>
           </select>
         </p>
         <div>
           <p><strong>Country : </strong>{{ movie.Country }}</p>
+
           <p><strong>Awards : </strong>{{ movie.Awards }}</p>
           <p><strong>Box Office : </strong>{{ movie.BoxOffice }}</p>
           <p><strong>Director : </strong> {{ movie.Director }}</p>
           <p><strong>Production : </strong>{{ movie.Production }}</p>
           <p><strong>Rating : </strong>{{ movie.Rated }}</p>
         </div>
+        <h3 v-if="status === true" style="color:Green">
+          <div class="alert">
+            <span
+              class="closebtn"
+              onclick="this.parentElement.style.display='none';"
+              >&times;</span
+            >
+            <strong>Details saved successfully!</strong>
+          </div>
+        </h3>
         <button @click="saveChanges()">
           Save Changes
         </button>
-        <button @click="cancelChanges()">
-          Cancel
+        <button @click="reset()">
+          Reset
         </button>
         <br />
       </div>
@@ -58,23 +62,37 @@
 </template>
 
 <script>
+import { allLanguages } from "../../../imdb";
 export default {
   data() {
     const movie = this.$store.state.movies.find(
       (movie) => movie.imdbID === this.$route.params.imdbId
     );
-
+    const filteredLanguages = allLanguages.filter((lang) => {
+      if (!movie.Language.split(", ").includes(lang)) return lang;
+    });
     return {
       movie,
       language: [],
+      filteredLanguages,
+      status: false,
     };
   },
-
   methods: {
     saveChanges() {
-      this.$store.commit({ type: "editMovie", payload: this.movie });
+      const updatedDetails = {
+        ...this.movie,
+        Language: [...this.movie.Language.split(", "), ...this.language].join(
+          ", "
+        ),
+      };
+      //console.log("up:", updatedDetails);
+      this.$store.commit({ type: "editMovie", updatedDetails });
+      this.status = true;
     },
-    cancelChanges() {},
+    reset() {
+      // Object.assign(this.$data, this.$options.data());
+    },
   },
 };
 </script>
@@ -104,5 +122,24 @@ button {
   color: white;
   padding: 10px;
   margin-right: 10%;
+}
+.alert {
+  padding: 20px;
+  background-color: green;
+  color: white;
+}
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
 }
 </style>

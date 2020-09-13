@@ -138,6 +138,10 @@ select {
   box-sizing: border-box;
 }
 
+textarea {
+  resize: vertical;
+}
+
 .mybutton {
   border: 2px solid;
   padding: 7px;

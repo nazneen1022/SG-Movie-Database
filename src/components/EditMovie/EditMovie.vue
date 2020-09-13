@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{ movie }}
     <h1>Edit Movie</h1>
     <img :src="movie.Poster" alt="no poster" width="32%" />
     <div class="editdetails">
@@ -19,7 +18,7 @@
         </p>
         <p>
           <label><strong>Language : </strong></label>
-          <span>{{ movie.Language }}</span>
+          <span>{{ [...movie.Language, ", ", ...language] }}</span>
           <select v-model="language" multiple>
             <option>English</option>
             <option>Hindi</option>
@@ -61,15 +60,19 @@
 <script>
 export default {
   data() {
+    const movie = this.$store.state.movies.find(
+      (movie) => movie.imdbID === this.$route.params.imdbId
+    );
+
     return {
-      movie: this.$store.state.movies.find(
-        (movie) => movie.imdbID === this.$route.params.imdbId
-      ),
+      movie,
+      language: [],
     };
   },
+
   methods: {
     saveChanges() {
-      this.$store.commit({ type: "EditMovie", payload: this.movie });
+      this.$store.commit({ type: "editMovie", payload: this.movie });
     },
     cancelChanges() {},
   },

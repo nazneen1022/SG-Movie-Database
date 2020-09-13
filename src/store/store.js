@@ -46,6 +46,14 @@ export default new Vuex.Store({
       //console.log("new State:", state);
       state.movies = [...state.movies, newMovie];
     },
+    editMovie(state, payload) {
+      //console.log("here:", state, payload);
+      const list = state.movies.filter(
+        (movie) => movie.imdbID !== payload.imdbID
+      );
+      //console.log("list:", list);
+      state = [...list, payload];
+    },
   },
   actions: {},
   getters: {},

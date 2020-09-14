@@ -18,17 +18,17 @@ export default new Vuex.Store({
       const newMovie = {
         Title: payload.newMovie.title,
         Year: payload.newMovie.year,
-        Rated: "",
-        Released: payload.newMovie.date || "1900-01-01",
+        Rated: "PG",
+        Released: payload.newMovie.releaseDate,
         Runtime: "",
-        Genre: payload.newMovie.genre.join(","),
+        Genre: payload.newMovie.genre.join(", ") || "Other",
         Director: payload.newMovie.director,
         Writer: "",
         Actors: "",
         Plot: payload.plot,
-        Language: payload.newMovie.language.join(","),
+        Language: payload.newMovie.language.join(", "),
         Country: "",
-        Awards: "",
+        Awards: "N/A",
         Poster: payload.newMovie.posterUrl,
         Ratings: [],
         Metascore: "",
@@ -42,9 +42,19 @@ export default new Vuex.Store({
         Website: "N/A",
         Response: "False",
       };
-      //console.log("new Movie:", newMovie);
-      //console.log("new State:", state);
+
       state.movies = [...state.movies, newMovie];
+    },
+    editMovie(state, payload) {
+      const list = state.movies.map((movie) => {
+        if (movie.imdbID === payload.updatedDetails.imdbID) {
+          return payload.updatedDetails;
+        } else {
+          return movie;
+        }
+      });
+      console.log("test", list);
+      state.movies = list;
     },
   },
   actions: {},

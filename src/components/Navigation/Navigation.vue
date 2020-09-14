@@ -33,7 +33,7 @@ ul.topnav {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: #333;
+  background-color: black;
 }
 
 ul.topnav li {

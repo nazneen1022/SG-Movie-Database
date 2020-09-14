@@ -119,26 +119,30 @@ export default {
   },
   methods: {
     handleSubmit(movie) {
-      //console.log("in Handle Submit:",movie)
-      if (!movie.title || !movie.posterUrl || !movie.year) 
-        return this.errors = ["Title, Poster URL and Year are required!"]
-      //Year Validation - should be a number with 4 digits
-      else if(isNaN(movie.year) || movie.year.length !== 4)
-       return  this.errors=["Year should be a 4-digit number!"];
-      else  {
-        const pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+      //define pattern to validate URL
+      const pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
         '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
         '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
         '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
         '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
         '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
-        const result=pattern.test(movie.posterUrl)
-        
-        // Poster URL validations
-        if(!result) return this.errors=["Poster URL is invalid!"];
-          // no errors - blank out errors array
-        else this.errors=[]
-      }
+      
+      const result=pattern.test(movie.posterUrl)
+      //Title, Year, Poster URL, Director and Production are required fields
+      if (!movie.title || !movie.posterUrl || !movie.year||!movie.director||!movie.production) 
+        return this.errors = ["Title, Poster URL, Year, director and production are required values!"]
+      //Year Validation - should be a number with 4 digits
+      else if(isNaN(parseInt(movie.year)) || movie.year.length !== 4)
+       return  this.errors=["Year should be a 4-digit number!"];
+      // Year should be between 1901 and 2100
+      else if(parseInt(movie.year)<1900 || parseInt(movie.year>2099))
+       return  this.errors=["Year must be after 1900 and before 2099!"];
+       // Release date cannot be blank
+      else if(!movie.releaseDate) return this.errors=["Invalid date!"]
+       // Poster URL validations
+      else if(!result) return this.errors=["Poster URL is invalid!"];
+      // no errors - blank out errors array
+      else this.errors=[]
       
       this.$store.commit({
         type: "addMovie",

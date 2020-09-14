@@ -43,7 +43,15 @@ export default {
     };
   },
   mounted() {
-    this.listOfMovies = this.$store.state.movies;
+    this.listOfMovies = this.$store.state.movies.sort((a, b) => {
+      if (a.imdbID < b.imdbID) {
+        return 1;
+      }
+      if (a.imdbID > b.imdbID) {
+        return -1;
+      }
+      return 0;
+    });
     //console.log("list:", this.listOfMovies);
   },
 };

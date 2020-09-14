@@ -17,6 +17,7 @@
           <label><strong>Plot</strong></label>
           <textarea rows="7" v-model="movie.Plot"></textarea>
         </p>
+        <p><strong>Release Date : </strong>{{ movie.Released }}</p>
         <p><strong>Genre : </strong>{{ movie.Genre }}</p>
         <p>
           <label><strong>Language : </strong></label>
@@ -30,15 +31,22 @@
             </option>
           </select>
         </p>
+        <p>
+          <label><strong>Director</strong></label>
+          <input type="text" v-model="movie.Director" />
+        </p>
+        <p>
+          <label><strong>Production</strong></label>
+          <input type="text" v-model="movie.Production" />
+        </p>
+
         <div>
           <p><strong>Country : </strong>{{ movie.Country }}</p>
-
           <p><strong>Awards : </strong>{{ movie.Awards }}</p>
           <p><strong>Box Office : </strong>{{ movie.BoxOffice }}</p>
-          <p><strong>Director : </strong> {{ movie.Director }}</p>
-          <p><strong>Production : </strong>{{ movie.Production }}</p>
           <p><strong>Rating : </strong>{{ movie.Rated }}</p>
         </div>
+
         <h3 v-if="status === true" style="color:Green">
           <div class="alert">
             <span

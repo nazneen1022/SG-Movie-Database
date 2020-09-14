@@ -1,19 +1,36 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Navigation />
+    <!--<MovieList /> -->
+    <router-view />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Vue from "vue";
+import VueRouter from "vue-router";
+import Navigation from "./components/Navigation/Navigation.vue";
+import MovieList from "./components/MovieList/MovieList";
+import AddMovie from "./components/AddMovie/AddMovie";
+
+const router = new VueRouter({
+  mode: "history",
+  routes: [
+    { path: "/MovieList", name: "MovieList", component: MovieList },
+    { path: "/AddMovie", name: "AddMovie", component: AddMovie },
+    // { path: "/bar/:id", name: "bar", component: Bar },
+  ],
+});
+
+Vue.use(VueRouter);
 
 export default {
-  name: 'App',
+  router,
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    Navigation,
+  },
+};
 </script>
 
 <style>
@@ -21,8 +38,6 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>

@@ -43,8 +43,7 @@
         <div>
           <p><strong>Country : </strong>{{ movie.Country }}</p>
           <p><strong>Awards : </strong>{{ movie.Awards }}</p>
-          <p><strong>Box Office : </strong>{{ movie.BoxOffice }}</p>
-          <p><strong>Rating : </strong>{{ movie.Rated }}</p>
+          <p><strong>Rating : </strong>{{ movie.imdbRating }}</p>
         </div>
 
         <h3 v-if="status === true" style="color:Green">
@@ -63,6 +62,7 @@
         <button @click="reset()">
           Reset
         </button>
+        <br />
         <br />
       </div>
     </div>
@@ -107,10 +107,14 @@ export default {
 
 <style scoped>
 .editdetails {
-  padding-left: 35%;
-  padding-right: 25%;
+  padding-top: 10px;
+  padding-left: 45%;
+  padding-right: 20%;
+  background-color: black;
+  color: white;
 }
 img {
+  padding: 30px;
   float: left;
 }
 input[type="text"],

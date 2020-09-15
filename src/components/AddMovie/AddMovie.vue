@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1>Add a New Movie</h1>
+    <img v-if="movie.posterUrl" :src=movie.posterUrl alt="no poster" width="27%" />
     <div class="myform">
       <!-- text -->
       <p>
@@ -19,6 +20,13 @@
         <label>Release Date</label>
         <input type="date" v-model="movie.releaseDate" />
       </p>
+      <!-- dropdown -->
+      <p>
+        <label>Country</label>
+        <select v-model="movie.country" >
+          <option v-for="country in ['USA','UK','India','China','Japan','Spain','Sweden','Bulgaria','Spain','Other']" :key="country">{{country}}</option>
+        </select>
+        </p>
       <!-- textarea -->
       <p>
         <label>Plot</label>
@@ -42,6 +50,10 @@
         </select>
       </p>
       <p>
+        <label>Awards</label>
+        <input type="text" v-model="movie.awards" />
+      </p>
+      <p>
         <label>Language</label>
         <select v-model="movie.language" multiple>
           <option v-for="language in filteredLanguages" :key="language">
@@ -56,6 +68,10 @@
       <p>
         <label>Production</label>
         <input type="text" v-model="movie.production" />
+      </p>
+      <p>
+        <label>Rating</label>
+        <input type="text" v-model="movie.rating" />
       </p>
       <!-- <p><pre>movie: {{movie }}</pre></p> -->
       <p>
@@ -105,12 +121,15 @@ export default {
         title: "",
         year: "",
         posterUrl: "",
+        country: "",
         releaseDate: "",
         plot: "",
         genre: [],
+        awards:"",
         language: [],
         director: "",
         production: "",
+        rating:"0"
       },
       filteredLanguages,
       errors: [],
@@ -141,6 +160,7 @@ export default {
       else if(!movie.releaseDate) return this.errors=["Invalid date!"]
        // Poster URL validations
       else if(!result) return this.errors=["Poster URL is invalid!"];
+      else if(movie.rating<0||movie.rating>10) return this.errors=["Rating cannot be <0 or >10"]
       // no errors - blank out errors array
       else this.errors=[]
       
@@ -159,8 +179,8 @@ export default {
 
 <style scoped>
 .myform {
-  padding-left: 30%;
-  padding-right: 30%;
+  padding-left: 35%;
+  padding-right: 25%;
 }
 input[type="text"],
 input[type="date"],
@@ -181,14 +201,15 @@ textarea {
 
 .mybutton {
   border: 2px solid;
+  font-weight: bolder;
   padding: 7px;
   border-radius: 3px;
-  background-color: rgb(240, 228, 250);
+  background-color: rgb(121, 179, 6);
 }
 
 div {
-  border-radius: 5px;
-  background-color: #f2f2f2;
+  background-color: black;
+  color:white;
   padding: 20px;
 }
 
@@ -210,5 +231,10 @@ div {
 
 .closebtn:hover {
   color: black;
+}
+
+img {
+  padding-top:20px;
+  float: left;
 }
 </style>

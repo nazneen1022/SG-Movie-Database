@@ -1,41 +1,34 @@
 <template>
-  <body>
-    <div>
-      <h1>All Movies</h1>
-      <p>
-        <label>Search by movie name : </label>
-        <input type="text" v-model="searchText" />
-        <button style="margin:10px" @click="search(searchText)">
-          Search
-        </button>
-      </p>
-    </div>
-    <div>
-      <div class="row">
-        <div v-for="movie in allMovies" :key="movie.imdbID">
-          <div class="column">
-            <div class="card">
-              <h3>
-                <strong
-                  ><router-link :to="`/MovieList/${movie.imdbID}`">{{
-                    movie.Title
-                  }}</router-link></strong
-                >
-              </h3>
-              <img :src="movie.Poster" alt="no-poster" />
-              <div style="text-align:left">
-                <p><strong>Release Year :</strong> {{ movie.Year }}</p>
-                <p>
-                  <strong>imdb Rating :</strong>
-                  {{ movie.imdbRating || "Not Rated" }}
-                </p>
-              </div>
-            </div>
-          </div>
+  <div>
+    <span style="float:right">
+      <label><strong>Search movies by Name : </strong></label>
+      <input type="text" v-model="searchText" />
+      <button style="margin:10px" @click="search(searchText)">
+        🔍 Search
+      </button>
+    </span>
+    <h1 style="color:black">All Movies</h1>
+    <div class="bg column" v-for="movie in allMovies" :key="movie.imdbID">
+      <div class="card">
+        <h3>
+          <strong
+            ><router-link :to="`/MovieList/${movie.imdbID}`">{{
+              movie.Title
+            }}</router-link></strong
+          >
+        </h3>
+        <img :src="movie.Poster" alt="no-poster" />
+        <br />
+        <div style="text-align:left">
+          <strong>Release Year :</strong> {{ movie.Year }}
+          <br />
+          <br />
+          <strong>imdb Rating :</strong>
+          {{ movie.imdbRating || "Not Rated" }}
         </div>
       </div>
     </div>
-  </body>
+  </div>
 </template>
 
 <script>
@@ -66,7 +59,7 @@ export default {
         movieTitle = movie.Title.toLowerCase();
         if (movieTitle.includes(text.toLowerCase())) return movie;
       });
-      console.log("filt:", filteredMovies);
+      //console.log("filt:", filteredMovies);
       this.allMovies = filteredMovies;
     },
   },
@@ -77,34 +70,35 @@ export default {
 * {
   box-sizing: border-box;
 }
-h1 {
-  color: rgb(167, 1, 65);
-}
-body {
-  font-family: Arial, Helvetica, sans-serif;
-}
 
+.body {
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+}
+.bg {
+  background-color: black;
+}
 /* Float four columns side by side */
 .column {
   float: left;
-  width: 32%;
-  padding: 25px;
+  width: 33%;
+  padding: 20px;
 }
 
 /* Style the counter cards */
 .card {
   display: grid;
-  border: 2px rgb(61, 2, 66);
   border-radius: 20px;
-  padding: 10px;
+  padding: 20px;
   text-align: center;
-  background-color: rgb(238, 236, 241);
-  grid-template-rows: max-content 200px 1fr;
+  background-color: white;
+  grid-template-rows: max-content 150px 1fr;
+  align-content: space-between;
 }
 
 .card img {
   object-fit: cover;
-  padding: 10px;
+  padding: 5px;
   width: 100%;
   height: 100%;
 }
@@ -117,12 +111,4 @@ body {
     margin-bottom: 20px;
   }
 }
-
-/* input[type="text"] {
-  width: 100%;
-  padding: 10px;
-  margin: 8px 0;
-  display: inline-block;
-  box-sizing: border-box;
-} */
 </style>

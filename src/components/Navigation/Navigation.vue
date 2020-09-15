@@ -10,7 +10,7 @@
         />
       </li>
       <li>
-        <router-link to="/MovieList">All Movies</router-link>
+        <router-link to="/">All Movies</router-link>
       </li>
       <li class="right">
         <router-link to="/AddMovie">Add Movie</router-link>

@@ -17,7 +17,7 @@ import EditMovie from "./components/EditMovie/EditMovie";
 const router = new VueRouter({
   mode: "history",
   routes: [
-    { path: "/MovieList", name: "MovieList", component: MovieList },
+    { path: "/", name: "MovieList", component: MovieList },
     { path: "/AddMovie", name: "AddMovie", component: AddMovie },
     { path: "/MovieList/:imdbId", name: "EditMovie", component: EditMovie },
   ],

@@ -25,10 +25,12 @@ There is no back-end for this application. All the data is stored and handled lo
 
 ## Technology used:
 
-- Vue
-- Vuex
-- Vue-router
+- Vue ⭐️
+- Vuex ⭐️
+- Vue-router ⭐️
 - HTML/CSS
+
+⭐️ New learnings while building this web application!
 
 ## How to install this?
 
